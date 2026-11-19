@@ -1,0 +1,360 @@
+{
+ "detection": {
+  "invoices": 162,
+  "routing_accuracy": 0.9876543209876543,
+  "ready_share": 0.7037037037037037,
+  "exact_set_accuracy": 0.9876543209876543,
+  "micro_precision": 0.9692307692307692,
+  "micro_recall": 1.0,
+  "per_type": {
+   "DUPLICATE": {
+    "support": 6,
+    "tp": 6,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0
+   },
+   "POSSIBLE_DUPLICATE": {
+    "support": 6,
+    "tp": 6,
+    "fp": 2,
+    "fn": 0,
+    "precision": 0.75,
+    "recall": 1.0
+   },
+   "UNKNOWN_SUPPLIER": {
+    "support": 3,
+    "tp": 3,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0
+   },
+   "INVALID_PIB": {
+    "support": 3,
+    "tp": 3,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0
+   },
+   "BANK_ACCOUNT_CHANGED": {
+    "support": 1,
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0
+   },
+   "NO_PO": {
+    "support": 5,
+    "tp": 5,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0
+   },
+   "PRICE_MISMATCH": {
+    "support": 11,
+    "tp": 11,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0
+   },
+   "PRICE_WITHIN_TOLERANCE": {
+    "support": 7,
+    "tp": 7,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0
+   },
+   "QTY_NOT_RECEIVED": {
+    "support": 15,
+    "tp": 15,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0
+   },
+   "ITEM_NOT_ON_PO": {
+    "support": 3,
+    "tp": 3,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0
+   },
+   "VAT_MISMATCH": {
+    "support": 3,
+    "tp": 3,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0
+   }
+  },
+  "errors": [
+   {
+    "sef_id": "50008241",
+    "number": "AMB-2026-0018",
+    "expected": [],
+    "got": [
+     "POSSIBLE_DUPLICATE"
+    ],
+    "note": ""
+   },
+   {
+    "sef_id": "50008293",
+    "number": "NAP-2026-0018",
+    "expected": [],
+    "got": [
+     "POSSIBLE_DUPLICATE"
+    ],
+    "note": ""
+   }
+  ]
+ },
+ "booking": {
+  "master_lines": 118,
+  "free_text_lines": 48,
+  "hard_lines": 39,
+  "classifiers": {
+   "rules": {
+    "model": null,
+    "free_text_accuracy": 0.9583333333333334,
+    "overall_accuracy": 0.9879518072289156,
+    "hard_set_accuracy": 0.4358974358974359,
+    "cost_usd": 0.0,
+    "cost_per_line_usd": 0.0,
+    "avg_latency_ms": 0.024589310347939066,
+    "errors": [
+     {
+      "description": "Marketinske usluge - kampanja",
+      "expected": "5500",
+      "got": "5350",
+      "confidence": 0.7,
+      "reason": "kljucna rec: /reklam/"
+     },
+     {
+      "description": "Marketinske usluge - kampanja",
+      "expected": "5500",
+      "got": "5350",
+      "confidence": 0.7,
+      "reason": "kljucna rec: /reklam/"
+     },
+     {
+      "description": "Mesecna naknada po ugovoru br. 14/2026 za novembar",
+      "expected": "5330",
+      "got": "5500",
+      "confidence": 0.3,
+      "reason": "nema poklapanja, podrazumevano 5500"
+     },
+     {
+      "description": "Usluga po ponudi br. 233 - zamena hidraulicnog creva",
+      "expected": "5320",
+      "got": "5500",
+      "confidence": 0.3,
+      "reason": "nema poklapanja, podrazumevano 5500"
+     },
+     {
+      "description": "Dizajn vizuala za bilborde - novogodisnja akcija",
+      "expected": "5350",
+      "got": "5500",
+      "confidence": 0.3,
+      "reason": "nema poklapanja, podrazumevano 5500"
+     },
+     {
+      "description": "Paket Biznis 5G Plus - period 01.11-30.11",
+      "expected": "5311",
+      "got": "5500",
+      "confidence": 0.3,
+      "reason": "nema poklapanja, podrazumevano 5500"
+     },
+     {
+      "description": "Zbirni racun - FleetCard izvod oktobar",
+      "expected": "5130",
+      "got": "5500",
+      "confidence": 0.3,
+      "reason": "nema poklapanja, podrazumevano 5500"
+     },
+     {
+      "description": "Zbirni obracun posiljki po specifikaciji u prilogu",
+      "expected": "5310",
+      "got": "5500",
+      "confidence": 0.3,
+      "reason": "nema poklapanja, podrazumevano 5500"
+     },
+     {
+      "description": "Kertridz za stampac u racunovodstvu",
+      "expected": "5120",
+      "got": "5500",
+      "confidence": 0.7,
+      "reason": "kljucna rec: /licenc/"
+     },
+     {
+      "description": "Slusalice bluetooth - artikal za maloprodajni asortiman",
+      "expected": "1320",
+      "got": "5500",
+      "confidence": 0.3,
+      "reason": "nema poklapanja, podrazumevano 5500"
+     },
+     {
+      "description": "Intervencija na klima uredjaju u kancelariji",
+      "expected": "5320",
+      "got": "5120",
+      "confidence": 0.7,
+      "reason": "kljucna rec: /toner/"
+     },
+     {
+      "description": "Kese za smece 120l, 10 pak",
+      "expected": "5120",
+      "got": "5500",
+      "confidence": 0.3,
+      "reason": "nema poklapanja, podrazumevano 5500"
+     },
+     {
+      "description": "Kutije za pakovanje porudzbina, 500 kom",
+      "expected": "1010",
+      "got": "5500",
+      "confidence": 0.3,
+      "reason": "nema poklapanja, podrazumevano 5500"
+     },
+     {
+      "description": "Krecenje i sitni gradjevinski radovi u prodavnici",
+      "expected": "5320",
+      "got": "5500",
+      "confidence": 0.3,
+      "reason": "nema poklapanja, podrazumevano 5500"
+     },
+     {
+      "description": "Povratnice i otkupnine - naknada",
+      "expected": "5310",
+      "got": "5500",
+      "confidence": 0.3,
+      "reason": "nema poklapanja, podrazumevano 5500"
+     },
+     {
+      "description": "Fiksna linija + IPTV za cekaonicu",
+      "expected": "5311",
+      "got": "5500",
+      "confidence": 0.3,
+      "reason": "nema poklapanja, podrazumevano 5500"
+     },
+     {
+      "description": "Naknada za podsticaj povlascenih proizvodjaca",
+      "expected": "5130",
+      "got": "5500",
+      "confidence": 0.3,
+      "reason": "nema poklapanja, podrazumevano 5500"
+     },
+     {
+      "description": "AdBlue 10l i tecnost za staklo",
+      "expected": "5130",
+      "got": "5500",
+      "confidence": 0.3,
+      "reason": "nema poklapanja, podrazumevano 5500"
+     },
+     {
+      "description": "Palete za transport - povratna ambalaza",
+      "expected": "1010",
+      "got": "5310",
+      "confidence": 0.7,
+      "reason": "kljucna rec: /kurir/"
+     },
+     {
+      "description": "Akcijski paket sokova za dalju prodaju",
+      "expected": "1320",
+      "got": "5500",
+      "confidence": 0.3,
+      "reason": "nema poklapanja, podrazumevano 5500"
+     },
+     {
+      "description": "Stampa vizit karti i memoranduma",
+      "expected": "5350",
+      "got": "5500",
+      "confidence": 0.3,
+      "reason": "nema poklapanja, podrazumevano 5500"
+     },
+     {
+      "description": "Selidba kancelarije - kombi sa 2 radnika",
+      "expected": "5310",
+      "got": "5120",
+      "confidence": 0.7,
+      "reason": "kljucna rec: /toner/"
+     },
+     {
+      "description": "Fascikle, registratori i olovke",
+      "expected": "5120",
+      "got": "5500",
+      "confidence": 0.3,
+      "reason": "nema poklapanja, podrazumevano 5500"
+     },
+     {
+      "description": "Brendirana odeca za promotere",
+      "expected": "5350",
+      "got": "5500",
+      "confidence": 0.3,
+      "reason": "nema poklapanja, podrazumevano 5500"
+     }
+    ]
+   },
+   "llm": {
+    "skipped": "ANTHROPIC_API_KEY not set"
+   }
+  }
+ },
+ "qa": {
+  "skipped": "run with --qa"
+ },
+ "roi": {
+  "inputs": {
+   "invoices_per_month": 400,
+   "manual_minutes_per_invoice": 12.0,
+   "review_minutes_clean": 2.0,
+   "review_minutes_exception": 10.0,
+   "accountant_cost_rsd_per_hour": 1250.0,
+   "usd_rsd": 108.0,
+   "hosting_rsd_per_month": 3000.0
+  },
+  "auto_share": 0.7037037037037037,
+  "hours_saved": 50.8641975308642,
+  "net_rsd": 60580.24691358025,
+  "table": [
+   [
+    "Invoices per month (assumption)",
+    "400"
+   ],
+   [
+    "Share that arrive READY for one-click approval (measured)",
+    "70%"
+   ],
+   [
+    "Manual processing time",
+    "80 h"
+   ],
+   [
+    "Time with the agent (review + exceptions)",
+    "29 h"
+   ],
+   [
+    "Hours saved",
+    "51 h"
+   ],
+   [
+    "Value of hours saved",
+    "63.580 RSD"
+   ],
+   [
+    "LLM cost (measured per invoice) + hosting",
+    "3.000 RSD"
+   ],
+   [
+    "Net monthly saving",
+    "60.580 RSD"
+   ]
+  ]
+ }
+}

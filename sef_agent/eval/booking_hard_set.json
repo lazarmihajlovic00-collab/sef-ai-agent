@@ -1,0 +1,236 @@
+[
+{
+"supplier": "Poslovni Prostor Podunavlje d.o.o.",
+"category": "services",
+"description": "Mesecna naknada po ugovoru br. 14/2026 za novembar",
+"account": "5330"
+},
+{
+"supplier": "Majstor Servis Tim d.o.o.",
+"category": "services",
+"description": "Usluga po ponudi br. 233 - zamena hidraulicnog creva",
+"account": "5320"
+},
+{
+"supplier": "Kodna Tacka d.o.o.",
+"category": "services",
+"description": "Microsoft 365 Business Standard x 12, mesecno",
+"account": "5500"
+},
+{
+"supplier": "Kreativni Kvadrat d.o.o.",
+"category": "services",
+"description": "Dizajn vizuala za bilborde - novogodisnja akcija",
+"account": "5350"
+},
+{
+"supplier": "TeleLink Mreze d.o.o.",
+"category": "services",
+"description": "Paket Biznis 5G Plus - period 01.11-30.11",
+"account": "5311"
+},
+{
+"supplier": "Petrol Morava d.o.o.",
+"category": "services",
+"description": "Zbirni racun - FleetCard izvod oktobar",
+"account": "5130"
+},
+{
+"supplier": "Elektro Energija Sever d.o.o.",
+"category": "services",
+"description": "Aktivna energija VT/NT, merno mesto 1023344",
+"account": "5130"
+},
+{
+"supplier": "Brza Posiljka d.o.o.",
+"category": "services",
+"description": "Zbirni obracun posiljki po specifikaciji u prilogu",
+"account": "5310"
+},
+{
+"supplier": "Bilans Konsalting d.o.o.",
+"category": "services",
+"description": "Obracun zarada i vodjenje poslovnih knjiga - oktobar",
+"account": "5500"
+},
+{
+"supplier": "Tehno Centar Plus d.o.o.",
+"category": "mixed",
+"description": "Kertridz za stampac u racunovodstvu",
+"account": "5120"
+},
+{
+"supplier": "Tehno Centar Plus d.o.o.",
+"category": "mixed",
+"description": "Slusalice bluetooth - artikal za maloprodajni asortiman",
+"account": "1320"
+},
+{
+"supplier": "Tehno Centar Plus d.o.o.",
+"category": "mixed",
+"description": "Intervencija na klima uredjaju u kancelariji",
+"account": "5320"
+},
+{
+"supplier": "Higijena Pro d.o.o.",
+"category": "goods",
+"description": "Dezinfekcija i deratizacija magacina",
+"account": "5500"
+},
+{
+"supplier": "Higijena Pro d.o.o.",
+"category": "goods",
+"description": "Kese za smece 120l, 10 pak",
+"account": "5120"
+},
+{
+"supplier": "Pak Forma d.o.o.",
+"category": "goods",
+"description": "Kutije za pakovanje porudzbina, 500 kom",
+"account": "1010"
+},
+{
+"supplier": "Global Trade Partner d.o.o.",
+"category": null,
+"description": "Usluge po ugovoru o saradnji",
+"account": "5500"
+},
+{
+"supplier": "Majstor Servis Tim d.o.o.",
+"category": "services",
+"description": "Krecenje i sitni gradjevinski radovi u prodavnici",
+"account": "5320"
+},
+{
+"supplier": "Kodna Tacka d.o.o.",
+"category": "services",
+"description": "Hosting web prodavnice i SSL sertifikat - godisnje",
+"account": "5500"
+},
+{
+"supplier": "Kreativni Kvadrat d.o.o.",
+"category": "services",
+"description": "Google Ads budzet i vodjenje kampanje",
+"account": "5350"
+},
+{
+"supplier": "Brza Posiljka d.o.o.",
+"category": "services",
+"description": "Povratnice i otkupnine - naknada",
+"account": "5310"
+},
+{
+"supplier": "TeleLink Mreze d.o.o.",
+"category": "services",
+"description": "Fiksna linija + IPTV za cekaonicu",
+"account": "5311"
+},
+{
+"supplier": "Poslovni Prostor Podunavlje d.o.o.",
+"category": "services",
+"description": "Najam parking mesta 4 kom",
+"account": "5330"
+},
+{
+"supplier": "Elektro Energija Sever d.o.o.",
+"category": "services",
+"description": "Naknada za podsticaj povlascenih proizvodjaca",
+"account": "5130"
+},
+{
+"supplier": "Petrol Morava d.o.o.",
+"category": "services",
+"description": "AdBlue 10l i tecnost za staklo",
+"account": "5130"
+},
+{
+"supplier": "Bilans Konsalting d.o.o.",
+"category": "services",
+"description": "Savetovanje u vezi sa PDV prijavom",
+"account": "5500"
+},
+{
+"supplier": "Agro Lux d.o.o.",
+"category": "goods",
+"description": "Palete za transport - povratna ambalaza",
+"account": "1010"
+},
+{
+"supplier": "Dunavski Napici d.o.o.",
+"category": "goods",
+"description": "Akcijski paket sokova za dalju prodaju",
+"account": "1320"
+},
+{
+"supplier": "Kodna Tacka d.o.o.",
+"category": "services",
+"description": "Popravka maticne ploce na POS kasi",
+"account": "5320"
+},
+{
+"supplier": "Kreativni Kvadrat d.o.o.",
+"category": "services",
+"description": "Stampa vizit karti i memoranduma",
+"account": "5350"
+},
+{
+"supplier": "Majstor Servis Tim d.o.o.",
+"category": "services",
+"description": "Atest i servis PP aparata",
+"account": "5320"
+},
+{
+"supplier": "Optima Servis Group d.o.o.",
+"category": null,
+"description": "Usluge optimizacije poslovnih procesa",
+"account": "5500"
+},
+{
+"supplier": "Brza Posiljka d.o.o.",
+"category": "services",
+"description": "Selidba kancelarije - kombi sa 2 radnika",
+"account": "5310"
+},
+{
+"supplier": "Tehno Centar Plus d.o.o.",
+"category": "mixed",
+"description": "Fascikle, registratori i olovke",
+"account": "5120"
+},
+{
+"supplier": "Poslovni Prostor Podunavlje d.o.o.",
+"category": "services",
+"description": "Zakup viljuskara - mesecno",
+"account": "5330"
+},
+{
+"supplier": "TeleLink Mreze d.o.o.",
+"category": "services",
+"description": "Prekoracenje mobilnog interneta - linija 064xxx",
+"account": "5311"
+},
+{
+"supplier": "Kodna Tacka d.o.o.",
+"category": "services",
+"description": "Obuka zaposlenih za rad u ERP-u, 2 dana",
+"account": "5500"
+},
+{
+"supplier": "Elektro Energija Sever d.o.o.",
+"category": "services",
+"description": "Isporuka toplotne energije - grejanje poslovnog prostora",
+"account": "5130"
+},
+{
+"supplier": "Higijena Pro d.o.o.",
+"category": "goods",
+"description": "Ciscenje poslovnog prostora - mesecni ugovor",
+"account": "5500"
+},
+{
+"supplier": "Kreativni Kvadrat d.o.o.",
+"category": "services",
+"description": "Brendirana odeca za promotere",
+"account": "5350"
+}
+]

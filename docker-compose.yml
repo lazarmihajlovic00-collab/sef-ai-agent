@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: sef
+      POSTGRES_PASSWORD: sef
+      POSTGRES_DB: sef
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sef"]
+      interval: 2s
+      retries: 20
+  app:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://sef:sef@db:5432/sef
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      SEF_MODE: mock
+    ports:
+      - "8000:8000"

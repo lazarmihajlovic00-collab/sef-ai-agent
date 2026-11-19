@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+.venv/
+.env
+data/*.db
+web/node_modules/
+web/dist/
+docs/screenshots/mobile_check.png
+data/*
+!data/samples/
