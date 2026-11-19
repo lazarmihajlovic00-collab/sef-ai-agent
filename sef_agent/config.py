@@ -23,14 +23,6 @@ class Settings:
     sef_api_key: str = field(default_factory=lambda: _env("SEF_API_KEY", ""))
     mock_sef_dir: Path = field(default_factory=lambda: Path(_env("MOCK_SEF_DIR", "./data/sef_inbox")))
 
-    # Legacy flag; provider selection lives in llm.py (Anthropic or Gemini key).
-    # and the chat endpoint answers that the LLM is disabled.
-    llm_model: str = field(default_factory=lambda: _env("LLM_MODEL", "claude-opus-5-5"))
-    llm_effort: str = field(default_factory=lambda: _env("LLM_EFFORT", "low"))
-    llm_enabled: bool = field(
-        default_factory=lambda: bool(os.environ.get("ANTHROPIC_API_KEY")) and _env("LLM_DISABLED", "") != "1"
-    )
-
     # Matching tolerances
     price_tolerance_pct: Decimal = field(default_factory=lambda: Decimal(_env("PRICE_TOLERANCE_PCT", "1.0")))
     amount_tolerance_rsd: Decimal = field(default_factory=lambda: Decimal(_env("AMOUNT_TOLERANCE_RSD", "1.00")))
