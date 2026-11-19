@@ -106,11 +106,28 @@ def _execute(session: Session, name: str, args: dict, user: str) -> dict:
 
 def ask(session: Session, question: str, user: str = "korisnik", history: list | None = None) -> AgentResult:
     if not llm.llm_available():
-        return AgentResult("LLM nije ukljucen (nedostaje ANTHROPIC_API_KEY). Ostatak sistema radi bez njega.")
-    model = llm.CHAT_MODEL
-    messages = list(history or []) + [{"role": "user", "content": f"(as_of: {queries.as_of().isoformat()})\n{question}"}]
-    result = AgentResult(answer="")
+        return AgentResult("LLM nije ukljucen (nema API kljuca). Ostatak sistema radi bez njega.")
+    prompt = f"(as_of: {queries.as_of().isoformat()})\n{question}"
     t0 = time.perf_counter()
+    if llm.provider() == "gemini":
+        result = _ask_gemini(session, prompt, user)
+    else:
+        result = _ask_anthropic(session, prompt, user, history)
+    result.latency_ms = int((time.perf_counter() - t0) * 1000)
+    return result
+
+
+def _add_usage(result: AgentResult, model: str, resp) -> None:
+    inp, out, cache = llm.usage_of(resp)
+    result.input_tokens += inp
+    result.output_tokens += out
+    result.cost_usd += llm.cost_usd(model, inp, out, cache)
+
+
+def _ask_anthropic(session: Session, prompt: str, user: str, history: list | None) -> AgentResult:
+    model = llm.chat_model()
+    messages = list(history or []) + [{"role": "user", "content": prompt}]
+    result = AgentResult(answer="")
     for _ in range(MAX_TURNS):
         with llm.track(session, "chat", model) as rec:
             resp = llm.client().beta.messages.create(
@@ -124,11 +141,7 @@ def ask(session: Session, question: str, user: str = "korisnik", history: list |
                 fallbacks="default",
             )
             rec(resp)
-        u = resp.usage
-        cache_read = getattr(u, "cache_read_input_tokens", 0) or 0
-        result.input_tokens += u.input_tokens
-        result.output_tokens += u.output_tokens
-        result.cost_usd += llm.cost_usd(model, u.input_tokens, u.output_tokens, cache_read)
+        _add_usage(result, model, resp)
         if resp.stop_reason == "refusal":
             result.answer = "Model je odbio ovaj zahtev."
             break
@@ -149,7 +162,48 @@ def ask(session: Session, question: str, user: str = "korisnik", history: list |
         messages.append({"role": "user", "content": results})
     else:
         result.answer = result.answer or "Nisam uspeo da zavrsim odgovor u dozvoljenom broju koraka."
-    result.latency_ms = int((time.perf_counter() - t0) * 1000)
+    return result
+
+
+def _gemini_tools():
+    from google.genai import types
+
+    decls = [types.FunctionDeclaration(name=t["name"], description=t["description"],
+                                       parameters_json_schema=t["input_schema"]) for t in TOOLS]
+    return [types.Tool(function_declarations=decls)]
+
+
+def _ask_gemini(session: Session, prompt: str, user: str) -> AgentResult:
+    from google.genai import types
+
+    model = llm.chat_model()
+    config = types.GenerateContentConfig(
+        system_instruction=SYSTEM_PROMPT,
+        tools=_gemini_tools(),
+        automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
+    )
+    contents: list = [types.Content(role="user", parts=[types.Part(text=prompt)])]
+    result = AgentResult(answer="")
+    for _ in range(MAX_TURNS):
+        with llm.track(session, "chat", model) as rec:
+            resp = llm.gemini_client().models.generate_content(model=model, contents=contents, config=config)
+            rec(resp)
+        _add_usage(result, model, resp)
+        calls = resp.function_calls or []
+        if not calls:
+            result.answer = (resp.text or "").strip() or "Model nije vratio odgovor."
+            break
+        contents.append(resp.candidates[0].content)
+        parts = []
+        for fc in calls:
+            args = dict(fc.args or {})
+            out = _execute(session, fc.name, args, user)
+            result.tool_calls.append({"name": fc.name, "input": args})
+            parts.append(types.Part.from_function_response(
+                name=fc.name, response={"result": json.loads(json.dumps(out, ensure_ascii=False, default=str))}))
+        contents.append(types.Content(role="user", parts=parts))
+    else:
+        result.answer = result.answer or "Nisam uspeo da zavrsim odgovor u dozvoljenom broju koraka."
     return result
 
 

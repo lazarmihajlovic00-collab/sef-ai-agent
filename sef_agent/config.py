@@ -23,7 +23,7 @@ class Settings:
     sef_api_key: str = field(default_factory=lambda: _env("SEF_API_KEY", ""))
     mock_sef_dir: Path = field(default_factory=lambda: Path(_env("MOCK_SEF_DIR", "./data/sef_inbox")))
 
-    # LLM. Without ANTHROPIC_API_KEY the app still works: booking falls back to rules
+    # Legacy flag; provider selection lives in llm.py (Anthropic or Gemini key).
     # and the chat endpoint answers that the LLM is disabled.
     llm_model: str = field(default_factory=lambda: _env("LLM_MODEL", "claude-opus-5-5"))
     llm_effort: str = field(default_factory=lambda: _env("LLM_EFFORT", "low"))

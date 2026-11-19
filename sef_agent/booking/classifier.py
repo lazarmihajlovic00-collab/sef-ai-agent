@@ -79,11 +79,18 @@ Kontni okvir (izvod):
 {ACCOUNT_GUIDE}"""
 
 
+class _GeminiAnswer(BaseModel):
+    account: str = Field(description="Jedan od konta: " + ", ".join(EXPENSE_ACCOUNTS))
+    confidence: float
+    reason: str
+
+
 class LLMClassifier:
     name = "llm"
 
     def __init__(self, model: str | None = None, session=None):
-        self.model = model or llm.BOOKING_MODEL
+        self.provider = llm.provider() or "anthropic"
+        self.model = model or llm.booking_model()
         self.session = session
 
     def classify(self, line: LineInput, invoice_id: int | None = None) -> Classification:
@@ -91,6 +98,8 @@ class LLMClassifier:
             f"Dobavljac: {line.supplier_name} (kategorija: {line.supplier_category or 'nepoznat dobavljac'})\n"
             f"Opis stavke: {line.description}\nIznos bez PDV-a: {line.amount} RSD"
         )
+        if self.provider == "gemini":
+            return self._gemini(prompt, invoice_id)
         with llm.track(self.session, "booking", self.model, invoice_id) as rec:
             resp = llm.client().messages.parse(
                 model=self.model,
@@ -104,3 +113,22 @@ class LLMClassifier:
             return Classification("5500", 0.0, "model nije vratio odgovor", "llm")
         a = resp.parsed_output
         return Classification(a.account, float(a.confidence), a.reason, "llm")
+
+    def _gemini(self, prompt: str, invoice_id: int | None) -> Classification:
+        from google.genai import types
+
+        with llm.track(self.session, "booking", self.model, invoice_id) as rec:
+            resp = llm.gemini_client().models.generate_content(
+                model=self.model,
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    system_instruction=SYSTEM,
+                    response_mime_type="application/json",
+                    response_schema=_GeminiAnswer,
+                ),
+            )
+            rec(resp)
+        a = resp.parsed
+        if a is None or a.account not in EXPENSE_ACCOUNTS:
+            return Classification("5500", 0.0, "model nije vratio ispravan konto", "llm")
+        return Classification(a.account, max(0.0, min(1.0, float(a.confidence))), a.reason, "llm")

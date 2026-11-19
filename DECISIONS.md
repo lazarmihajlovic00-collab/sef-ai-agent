@@ -72,3 +72,12 @@ Everything, including tests and the evaluation, runs without SEF access; switchi
 The same team wrote the data generator and the rules, so detection scores only prove the controls work as specified.
 To keep the LLM numbers honest the booking evaluation adds a hand-written "hard set" of ambiguous service
 descriptions that the keyword baseline was not written for, and Q&A answers are compared with SQL results.
+
+## D11. Two LLM providers: Claude and Gemini (Lazar, 2026-11-19)
+**Question:** The evaluation needs a working API key. Pay for the Anthropic API, or use the Gemini key Lazar
+already has?
+**Chosen (Lazar):** support both. `LLM_PROVIDER=anthropic|gemini` switches the booking classifier and the chat agent;
+the rules, tools, approvals and evaluation are shared. Results in the README say which provider produced them.
+**Trade-offs:** Gemini's free tier may use submitted data to improve Google's models. That is fine for this project's
+fictional invoices, but a real company's invoices need a paid tier (or Claude) with no-training terms. Keeping the
+provider behind two call sites also shows the design is not locked to one vendor.

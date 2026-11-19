@@ -98,7 +98,7 @@ def eval_booking(session, truth: dict, classifiers: list[str]) -> dict:
                "hard_lines": len(hard_lines), "classifiers": {}}
     for name in classifiers:
         if name == "llm" and not llm.llm_available():
-            results["classifiers"]["llm"] = {"skipped": "ANTHROPIC_API_KEY not set"}
+            results["classifiers"]["llm"] = {"skipped": "no LLM API key set"}
             continue
         clf = LLMClassifier(session=session) if name == "llm" else RuleClassifier()
         gen = _score(session, clf, name, free_lines)
@@ -190,7 +190,7 @@ def eval_qa(session) -> dict:
     from ..agent.runner import ask
 
     if not llm.llm_available():
-        return {"skipped": "ANTHROPIC_API_KEY not set"}
+        return {"skipped": "no LLM API key set"}
     rows, ok_n, cost = [], 0, 0.0
     for c in qa_cases(session):
         res = ask(session, c["q"], user="eval")

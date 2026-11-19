@@ -36,6 +36,7 @@ def fake(monkeypatch):
         client = NS(messages=msgs, beta=NS(messages=msgs))
         monkeypatch.setattr(llm, "client", lambda: client)
         monkeypatch.setattr(llm, "llm_available", lambda: True)
+        monkeypatch.setattr(llm, "provider", lambda: "anthropic")
         return msgs
     return install
 
@@ -44,7 +45,7 @@ def test_agent_answers_from_tool_result(seeded, fake):
     expected = queries.payables(seeded, supplier_query="Agro Lux", due_until="2026-11-30")["total_open"]
 
     def step1(kw):
-        assert kw["model"] == llm.CHAT_MODEL and kw["fallbacks"] == "default"
+        assert kw["model"] == llm.chat_model() and kw["fallbacks"] == "default"
         assert all(t.get("strict") for t in kw["tools"])
         return NS(stop_reason="tool_use", usage=usage(), content=[
             NS(type="text", text="Proveravam."),
@@ -96,7 +97,7 @@ def test_tool_errors_are_returned_not_raised(seeded, fake):
 
 def test_llm_classifier_uses_structured_output(session, fake):
     def step(kw):
-        assert kw["model"] == llm.BOOKING_MODEL and kw["output_format"].__name__ == "_LLMAnswer"
+        assert kw["model"] == llm.booking_model() and kw["output_format"].__name__ == "_LLMAnswer"
         return NS(stop_reason="end_turn", usage=usage(),
                   parsed_output=NS(account="5330", confidence=0.91, reason="zakup prostora"))
 

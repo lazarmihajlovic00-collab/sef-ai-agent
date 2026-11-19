@@ -24,7 +24,7 @@ That work is repetitive, error-prone and the place where duplicate payments and 
 | Supplier checks | PIB check digit (ISO 7064 MOD 11,10), unknown supplier, **bank account differs from master data** | rules |
 | 3-way match | invoice vs purchase order (price, item) vs goods receipt (quantity, net of earlier invoices) | rules |
 | Arithmetic | VAT per rate and totals | rules |
-| Booking proposal | account per line: item master, or LLM classification with structured output for free-text lines | LLM + rules |
+| Booking proposal | account per line: item master, or LLM classification with structured output for free-text lines (Claude or Gemini) | LLM + rules |
 | Questions in Serbian | tool-using agent; every number comes from SQL tools | LLM |
 | Accept / reject in SEF, booking | `ActionRequest` waiting for a named person | **person** |
 | Audit | SHA-256 hash chain over every event | system |
@@ -42,7 +42,7 @@ flowchart LR
   EXC --> ACT
   ACT -->|approve / deny<br/>named person| UI[Dashboard]
   UI -->|accept / reject| SEF
-  CHAT[Chat agent<br/>Claude + tools] -->|read-only SQL tools| DB
+  CHAT[Chat agent<br/>Claude or Gemini + tools] -->|read-only SQL tools| DB
   CHAT -->|request rejection only| ACT
   RULES & BOOK & ACT & CHAT --> AUD[(Hash-chained audit log)]
 ```
@@ -60,8 +60,8 @@ Measured with `sef-agent eval` on 162 synthetic invoices (110 clean, the rest wi
 | Recall on injected problems (duplicates, price, quantity, bank account, fake supplier, VAT) | **100%** |
 | Booking accuracy, all lines, keyword baseline | 98.8% |
 | Booking accuracy, hand-written hard set, keyword baseline | 43.6% |
-| Booking accuracy and cost per line, LLM | run `sef-agent eval` with `ANTHROPIC_API_KEY` set |
-| Q&A accuracy against SQL ground truth | run `sef-agent eval --qa` with `ANTHROPIC_API_KEY` set |
+| Booking accuracy and cost per line, LLM | run `sef-agent eval` with an LLM key set |
+| Q&A accuracy against SQL ground truth | run `sef-agent eval --qa` with an LLM key set |
 | Estimated saving at 400 invoices/month | ~51 hours and ~60.000 RSD per month (assumptions in `roi.py`) |
 
 The detection numbers prove the controls work as specified. The same team wrote the data generator, so they are not
@@ -77,10 +77,11 @@ cd web && npm install && npm run build && cd ..
 sef-agent serve           # http://127.0.0.1:8000
 ```
 
-With an Anthropic API key the booking classifier and the Serbian chat agent switch on:
+With an LLM API key the booking classifier and the Serbian chat agent switch on. Two providers are supported,
+Anthropic Claude and Google Gemini (`LLM_PROVIDER`, see `.env.example`):
 
 ```bash
-export ANTHROPIC_API_KEY=...
+export ANTHROPIC_API_KEY=...      # or: export GEMINI_API_KEY=...
 sef-agent ask "Koliko dugujemo dobavljaču Agro Lux do kraja meseca?"
 sef-agent eval --qa
 ```
@@ -106,7 +107,7 @@ sef_agent/
   audit.py      hash-chained audit log
   roi.py        business-case calculator
 web/            React + TypeScript dashboard (Vite)
-tests/          20 tests, including the agent loop with a scripted fake model
+tests/          23 tests, including both agent loops (Claude, Gemini) with scripted fake models
 ```
 
 ## Limitations and next steps
