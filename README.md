@@ -60,9 +60,16 @@ Measured with `sef-agent eval` on 162 synthetic invoices (110 clean, the rest wi
 | Recall on injected problems (duplicates, price, quantity, bank account, fake supplier, VAT) | **100%** |
 | Booking accuracy, all lines, keyword baseline | 98.8% |
 | Booking accuracy, hand-written hard set, keyword baseline | 43.6% |
-| Booking accuracy and cost per line, LLM | run `sef-agent eval` with an LLM key set |
-| Q&A accuracy against SQL ground truth | run `sef-agent eval --qa` with an LLM key set |
+| Booking accuracy, all lines, LLM (gemini-3.5-flash-lite) | 98.8% (free-text lines: 95.8%, same as keyword rules) |
+| Booking accuracy, hand-written hard set, LLM (gemini-3.5-flash-lite) | **92.3%** (keyword rules: 43.6%) |
+| LLM cost per booked line | ~$0.00027 at paid list price (~0.03 RSD), ~3.9 s per call |
+| Q&A accuracy against SQL ground truth (9 questions in Serbian) | 9/9, ~$0.0015 per question |
 | Estimated saving at 400 invoices/month | ~51 hours and ~60.000 RSD per month (assumptions in `roi.py`) |
+
+LLM numbers were measured on 2026-11-20 with Gemini's free tier (`LLM_PROVIDER=gemini`); cost is computed at Google's
+paid list price ($0.30 / $2.50 per 1M input / output tokens) so it reflects what a company would pay. The Q&A set is
+small (9 questions, each answered with one tool call), so 9/9 shows the tool wiring works, not that every question will
+be answered correctly. The Anthropic path (`claude-haiku-5-5` / `claude-opus-5-5`) has not been measured yet.
 
 The detection numbers prove the controls work as specified. The same team wrote the data generator, so they are not
 a real-world accuracy estimate; that needs a pilot on a company's own SEF data.

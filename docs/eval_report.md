@@ -43,11 +43,29 @@ The hard set is 39 hand-written, deliberately ambiguous service descriptions tha
 | Classifier | Model | Generated free-text | Overall (all lines) | Hard set | Cost per line | Avg latency |
 |---|---|---|---|---|---|---|
 | rules | - | 95.8% | 98.8% | 43.6% | $0.00000 | 0 ms |
-| llm | - | skipped: ANTHROPIC_API_KEY not set | | | | |
+| llm | gemini-3.5-flash-lite | 95.8% | 98.8% | 92.3% | $0.00027 | 3897 ms |
+
+Run notes (2026-11-20): Gemini free tier, `gemini-3.5-flash-lite` for both booking and chat (gemini-2.5-flash-lite is
+closed to new keys, gemini-2.5-flash allows 20 free requests a day). Cost uses the paid list price. On the generated set
+the LLM ties the keyword rules; most of its "errors" there are arguable labels (e.g. a marketing campaign booked to
+advertising 5350 instead of other services 5500, cleaning booked to maintenance 5320). The gain is on the hard set:
+92.3% vs 43.6%.
 
 ## 3. Questions in Serbian (agent with SQL tools)
 
-Skipped: run with --qa.
+Accuracy 100.0% on 9 questions, total cost $0.0135.
+
+| Question | Expected | Correct | Tools | Cost |
+|---|---|---|---|---|
+| Koliko dugujemo dobavljacu Agro Lux d.o.o. sa dospecem do kraja meseca? | 92408.60 | yes | payables | $0.0014 |
+| Koliko dugujemo dobavljacu Ravnica Mlecni Proizvodi d.o.o. sa dospecem do kraja meseca? | 305380.96 | yes | payables | $0.0014 |
+| Koliko dugujemo dobavljacu Kodna Tacka d.o.o. sa dospecem do kraja meseca? | 0 | yes | payables | $0.0011 |
+| Koliko dugujemo dobavljacu Majstor Servis Tim d.o.o. sa dospecem do kraja meseca? | 0 | yes | payables | $0.0012 |
+| Koliko dugujemo dobavljacu Pak Forma d.o.o. sa dospecem do kraja meseca? | 241823.36 | yes | payables | $0.0013 |
+| Koliko ukupno moramo da platimo dobavljacima do 30.11.2026? | 2277690.16 | yes | payables | $0.0020 |
+| Koliki je ukupan iznos dospelih a neplacenih faktura na danasnji dan? | 1057779.85 | yes | payables | $0.0016 |
+| Koliko faktura trenutno ceka proveru zbog odstupanja? | 48 | yes | list_exceptions | $0.0023 |
+| Kod kog dobavljaca smo imali najveci trosak (bez PDV-a) u oktobru 2026? | Tehno Centar Plus d.o.o. | yes | spend_by_supplier | $0.0011 |
 
 ## 4. Business case (monthly)
 
@@ -59,7 +77,7 @@ Skipped: run with --qa.
 | Time with the agent (review + exceptions) | 29 h |
 | Hours saved | 51 h |
 | Value of hours saved | 63.580 RSD |
-| LLM cost (measured per invoice) + hosting | 3.000 RSD |
-| Net monthly saving | 60.580 RSD |
+| LLM cost (measured per invoice) + hosting | 3.004 RSD |
+| Net monthly saving | 60.577 RSD |
 
 Assumptions are in `sef_agent/roi.py` and can be changed per client.

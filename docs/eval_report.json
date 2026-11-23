@@ -129,7 +129,7 @@
     "hard_set_accuracy": 0.4358974358974359,
     "cost_usd": 0.0,
     "cost_per_line_usd": 0.0,
-    "avg_latency_ms": 0.024589310347939066,
+    "avg_latency_ms": 0.01890258620693365,
     "errors": [
      {
       "description": "Marketinske usluge - kampanja",
@@ -302,12 +302,158 @@
     ]
    },
    "llm": {
-    "skipped": "ANTHROPIC_API_KEY not set"
+    "model": "gemini-3.5-flash-lite",
+    "free_text_accuracy": 0.9583333333333334,
+    "overall_accuracy": 0.9879518072289156,
+    "hard_set_accuracy": 0.9230769230769231,
+    "cost_usd": 0.0238487,
+    "cost_per_line_usd": 0.0002741229885057471,
+    "avg_latency_ms": 3897.318339793104,
+    "errors": [
+     {
+      "description": "Marketinske usluge - kampanja",
+      "expected": "5500",
+      "got": "5350",
+      "confidence": 0.95,
+      "reason": "Marketing usluge i kampanje predstavljaju troškove reklame i propagande."
+     },
+     {
+      "description": "Marketinske usluge - kampanja",
+      "expected": "5500",
+      "got": "5350",
+      "confidence": 0.95,
+      "reason": "Marketinske usluge i kampanje predstavljaju troškove reklame i propagande."
+     },
+     {
+      "description": "Dezinfekcija i deratizacija magacina",
+      "expected": "5500",
+      "got": "5320",
+      "confidence": 0.9,
+      "reason": "Usluge dezinfekcije i deratizacije predstavljaju redovno odrzavanje objekata i magacina, pa se knjize na troškove usluga održavanja."
+     },
+     {
+      "description": "Kutije za pakovanje porudzbina, 500 kom",
+      "expected": "1010",
+      "got": "1320",
+      "confidence": 0.8,
+      "reason": "Kutije za pakovanje porudzbina u trgovinskom preduzecu se obicno tretiraju kao deo robe ili materijala za pakovanje koji ide uz robu, a posto je dobavljac kategorisan kao goods, pogodniji je konto zaliha robe."
+     },
+     {
+      "description": "Ciscenje poslovnog prostora - mesecni ugovor",
+      "expected": "5500",
+      "got": "5320",
+      "confidence": 0.9,
+      "reason": "Usluga ciscenja poslovnog prostora predstavlja tekuce odrzavanje objekata."
+     }
+    ]
    }
   }
  },
  "qa": {
-  "skipped": "run with --qa"
+  "accuracy": 1.0,
+  "n": 9,
+  "cost_usd": 0.013534800000000003,
+  "cases": [
+   {
+    "question": "Koliko dugujemo dobavljacu Agro Lux d.o.o. sa dospecem do kraja meseca?",
+    "expected": "92408.60",
+    "answer": "Ukupan dug prema dobavljaču Agro Lux d.o.o. sa dospećem do kraja meseca (30.11.2026.) iznosi **92.408,60 RSD**, i celokupan iznos se nalazi u fakturama sa odstupanjima.\n\nLista otvorenih faktura:\n- **AGR-2026-0020**: 7.975,00 RSD (dospelo 12.11.2026, status: EXCEPTION)\n- **AGR-2026-0006**: 84.433,60 RSD (dospelo 16.11.2026, status: EXCEPTION)",
+    "ok": true,
+    "tools": [
+     "payables"
+    ],
+    "cost_usd": 0.001395,
+    "latency_ms": 1727
+   },
+   {
+    "question": "Koliko dugujemo dobavljacu Ravnica Mlecni Proizvodi d.o.o. sa dospecem do kraja meseca?",
+    "expected": "305380.96",
+    "answer": "Ukupno dugovanje prema dobavljaču Ravnica Mlečni Proizvodi d.o.o. sa dospećem do kraja meseca (30.11.2026.) iznosi **305.380,96 RSD**. \n\nOd toga je iznos od **167.407,24 RSD** u fakturama sa odstupanjima (status EXCEPTION).",
+    "ok": true,
+    "tools": [
+     "payables"
+    ],
+    "cost_usd": 0.0014474000000000002,
+    "latency_ms": 1797
+   },
+   {
+    "question": "Koliko dugujemo dobavljacu Kodna Tacka d.o.o. sa dospecem do kraja meseca?",
+    "expected": "0",
+    "answer": "Preduzeće Kodna Tacka d.o.o. nema otvorenih dugovanja sa dospecem do kraja meseca (do 30.11.2026). Ukupan iznos otvorenih dugovanja za ovog dobavljača je 0,00 RSD.",
+    "ok": true,
+    "tools": [
+     "payables"
+    ],
+    "cost_usd": 0.0010926999999999998,
+    "latency_ms": 1536
+   },
+   {
+    "question": "Koliko dugujemo dobavljacu Majstor Servis Tim d.o.o. sa dospecem do kraja meseca?",
+    "expected": "0",
+    "answer": "Prema evidenciji na dan 19.11.2026, Demo Trgovina d.o.o. nema otvorena dugovanja prema dobavljaču Majstor Servis Tim d.o.o. sa dospijećem do 30.11.2026. godine. \n\nUkupan iznos otvorenih dugovanja je **0,00 RSD** (od čega je 0,00 RSD u spornim fakturama).",
+    "ok": true,
+    "tools": [
+     "payables"
+    ],
+    "cost_usd": 0.0011964,
+    "latency_ms": 1490
+   },
+   {
+    "question": "Koliko dugujemo dobavljacu Pak Forma d.o.o. sa dospecem do kraja meseca?",
+    "expected": "241823.36",
+    "answer": "Ukupno dugovanje prema dobavljaču Pak Forma d.o.o. sa dospećem do kraja meseca (30.11.2026.) iznosi **241.823,36 RSD** (ukupno 8 otvorenih faktura). \n\nOd tog iznosa, **129.157,04 RSD** se odnosi na fakture koje su u statusu odstupanja (EXCEPTION).",
+    "ok": true,
+    "tools": [
+     "payables"
+    ],
+    "cost_usd": 0.0013379,
+    "latency_ms": 1209
+   },
+   {
+    "question": "Koliko ukupno moramo da platimo dobavljacima do 30.11.2026?",
+    "expected": "2277690.16",
+    "answer": "Ukupno dugovanje prema dobavljačima sa dospećem do 30.11.2026. iznosi **2.277.690,16 RSD**. \n\nNapomena: Od ovog iznosa, **963.230,61 RSD** se odnosi na fakture koje se nalaze u statusu odstupanja (EXCEPTION).\n\n*(Prikazan je skraćeni spisak od ukupno 48 faktura sa dospećem u zadatom periodu).*",
+    "ok": true,
+    "tools": [
+     "payables"
+    ],
+    "cost_usd": 0.00203,
+    "latency_ms": 2036
+   },
+   {
+    "question": "Koliki je ukupan iznos dospelih a neplacenih faktura na danasnji dan?",
+    "expected": "1057779.85",
+    "answer": "Ukupan iznos dospelih a neplaćenih faktura na dan 19.11.2026. iznosi **1.057.779,85 RSD**. \n\nOd toga je **765.786,45 RSD** u fakturama sa odstupanjima (status EXCEPTION).",
+    "ok": true,
+    "tools": [
+     "payables"
+    ],
+    "cost_usd": 0.0016418000000000001,
+    "latency_ms": 1410
+   },
+   {
+    "question": "Koliko faktura trenutno ceka proveru zbog odstupanja?",
+    "expected": "48",
+    "answer": "Trenutno **48** faktura čeka proveru zbog odstupanja.",
+    "ok": true,
+    "tools": [
+     "list_exceptions"
+    ],
+    "cost_usd": 0.0022756,
+    "latency_ms": 18252
+   },
+   {
+    "question": "Kod kog dobavljaca smo imali najveci trosak (bez PDV-a) u oktobru 2026?",
+    "expected": "Tehno Centar Plus d.o.o.",
+    "answer": "Najveći trošak (bez PDV-a) u oktobru 2026. godine imali smo kod dobavljača **Tehno Centar Plus d.o.o.** sa iznosom od **647.520,80 RSD** (kroz 4 fakture).",
+    "ok": true,
+    "tools": [
+     "spend_by_supplier"
+    ],
+    "cost_usd": 0.001118,
+    "latency_ms": 1528
+   }
+  ]
  },
  "roi": {
   "inputs": {
@@ -321,7 +467,7 @@
   },
   "auto_share": 0.7037037037037037,
   "hours_saved": 50.8641975308642,
-  "net_rsd": 60580.24691358025,
+  "net_rsd": 60576.73813932738,
   "table": [
    [
     "Invoices per month (assumption)",
@@ -349,11 +495,11 @@
    ],
    [
     "LLM cost (measured per invoice) + hosting",
-    "3.000 RSD"
+    "3.004 RSD"
    ],
    [
     "Net monthly saving",
-    "60.580 RSD"
+    "60.577 RSD"
    ]
   ]
  }

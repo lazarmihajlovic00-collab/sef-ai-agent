@@ -18,7 +18,9 @@ from .models import LLMCall
 # a stronger model runs the conversational agent (multi-step tool use).
 DEFAULT_MODELS = {
     "anthropic": {"booking": "claude-haiku-5-5", "chat": "claude-opus-5-5"},
-    "gemini": {"booking": "gemini-2.5-flash-lite", "chat": "gemini-2.5-flash"},
+    # gemini-2.5-flash-lite is closed to new API keys (404) and gemini-2.5-flash allows only 20 free requests a day,
+    # so the free tier runs both call sites on gemini-3.5-flash-lite. Override with BOOKING_MODEL / CHAT_MODEL.
+    "gemini": {"booking": "gemini-3.5-flash-lite", "chat": "gemini-3.5-flash-lite"},
 }
 
 # USD per 1M tokens: (input, output, cache read). Paid-tier list prices; check the providers' pricing pages.
@@ -30,6 +32,7 @@ PRICING = {
     "gemini-2.5-flash": (0.30, 2.50, 0.03),
     "gemini-2.5-flash-lite": (0.10, 0.40, 0.01),
     "gemini-2.5-pro": (1.25, 10.00, 0.125),
+    "gemini-3.5-flash-lite": (0.30, 2.50, 0.03),
 }
 
 
@@ -79,8 +82,13 @@ def client():
 def gemini_client():
     if "gemini" not in _clients:
         from google import genai
+        from google.genai import types
 
-        _clients["gemini"] = genai.Client(api_key=_gemini_key())
+        # Free-tier keys are rate limited per minute; retry 429/5xx with exponential backoff.
+        retry = types.HttpRetryOptions(attempts=8, initial_delay=5, max_delay=90, exp_base=2,
+                                       http_status_codes=[429, 500, 503, 504])
+        _clients["gemini"] = genai.Client(api_key=_gemini_key(),
+                                          http_options=types.HttpOptions(api_version="v1beta", retry_options=retry))
     return _clients["gemini"]
 
 
